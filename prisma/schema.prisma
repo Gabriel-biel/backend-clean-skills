@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  DELIVERYMAN
+  RECIPIENT
+  ADM
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  cpf           String   @unique
+  password      String?
+  role          UserRole @default(DELIVERYMAN)
+  bestAddressId String?  @unique @map("best_address_id")
+
+  addresses         Address[]
+  bestAddress       Address?       @relation("bestAddress", fields: [bestAddressId], references: [id], onDelete: Cascade)
+  deliverymanOrders Order[]        @relation("deliveryman")
+  recipientOrders   Order[]        @relation("recipient")
+  notifications     Notification[]
+}
+
+model Order {
+  id                   String        @id @default(uuid())
+  pickupAvailableOrder DateTime?     @map("pickup_available_order")
+  pickupAt             DateTime?     @map("pickup_at")
+  deliveredAt          DateTime?     @map("delivered_at")
+  returnedAt           DateTime?     @map("returned_at")
+  createdAt            DateTime      @default(now()) @map("created_at")
+  updatedAt            DateTime?     @updatedAt @map("updated_at")
+  addressId            String        @map("address_id")
+  recipientId          String        @map("recipient_id")
+  deliverymanId        String?
+  attachments          Attachments[]
+
+  deliveryman User?   @relation("deliveryman", fields: [deliverymanId], references: [id])
+  recipient   User    @relation("recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  address     Address @relation(fields: [addressId], references: [id], onDelete: Cascade)
+
+  @@map("orders")
+}
+
+model Address {
+  id          String  @id @default(uuid())
+  city        String
+  street      String
+  houseNumber String  @map("house_number")
+  latitude    Decimal
+  longitude   Decimal
+  recipientId String  @map("recipient_id")
+
+  recipient   User    @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  bestAddress User?   @relation("bestAddress")
+  orders      Order[]
+
+  @@map("addresses")
+}
+
+model Attachments {
+  id      String  @id @default(uuid())
+  title   String
+  link    String
+  orderId String? @map("order_id")
+
+  order Order? @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("attachments")
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  title       String
+  content     String
+  readAt      DateTime? @map("read_at")
+  recipientId String    @map("recipient_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  recipient User @relation(fields: [recipientId], references: [id])
+
+  @@map("notifications")
+}
