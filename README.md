@@ -1,6 +1,7 @@
 Repositório de estudos em: DDD no Node.js e NestJS
 
 ## Introdução
+
 ## Sobre a api-rest
 
 Desenvolvi uma API para controle de encomendas de uma transportadora fictícia, a FastFeet.
@@ -33,7 +34,7 @@ Desenvolvi uma API para controle de encomendas de uma transportadora fictícia, 
 
 ### Conceitos postos em prática
 
-- DDD, Domain Events, Clean Architecture </br>
-- Autenticação e Autorização (RBAC) </br>
-- Testes unitários e e2e </br>
-- Integração com serviços externos </br>
+-DDD, Domain Events, Clean Architecture </br>
+-Autenticação e Autorização (RBAC) </br>
+-Testes unitários e e2e </br>
+-Integração com serviços externos </br>
