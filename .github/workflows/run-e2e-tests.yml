@@ -31,8 +31,8 @@ jobs:
           
       - run: npm ci
       
-      - run: echo "Decoded JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY | base64 -d }}"
-      - run: echo "Decoded JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY | base64 -d }}"
+      - run: echo "Decoded JWT_PRIVATE_KEY:${{ secrets.JWT_PRIVATE_KEY | base64 -d }}"
+      - run: echo "Decoded JWT_PUBLIC_KEY:${{ secrets.JWT_PUBLIC_KEY | base64 -d }}"
       - run: npm run test:e2e
         env:
           DATABASE_URL: "postgresql://postgres:docker@localhost:5432/nest-challenge?schema=public"
