@@ -31,8 +31,8 @@ jobs:
 
       - run: openssl genpkey -algorithm RSA -out private_key.pem
       - run: openssl rsa -pubout -in private_key.pem -out public_key.pem
-      - run: base64 -w 0 public_key.pem > example_base64.txt
-      - run: echo "CONTEUDO=$(cat example_base64.txt)"
+      - run: base64 -w 0 private_key.pem > private_base64.txt
+      - run: base64 -w 0 public_key.pem > public_base64.txt
 
       - run: npm ci
       - run: npm run test:e2e
@@ -42,5 +42,5 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: "584075bcc0c6c67478761fe805d67a79"
           AWS_ACCESS_KEY_ID: "c3c2b62831a0479fcfc453f02c04d142"
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
-          JWT_PRIVATE_KEY: private_key.pem
-          JWT_PUBLIC_KEY: public_key.pem
+          JWT_PRIVATE_KEY: "$(cat private_base64.txt.txt)"
+          JWT_PUBLIC_KEY: "$(cat public_base64.txt)"
