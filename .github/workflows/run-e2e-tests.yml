@@ -30,11 +30,13 @@ jobs:
           cache: "npm"
 
       - run: npm ci
-      
-      # - run: echo "${{ secrets.JWT_PRIVATE_KEY }}" | base64 --decode > private_key.pem
-      # - run: echo "${{ secrets.JWT_PUBLIC_KEY }}" | base64 --decode > public_key.pem
-      - run: echo "Decoded JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY | base64 -d }}"
-      - run: echo "Decoded JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY | base64 -d }}"
+
+      - run: echo "${{ secrets.JWT_PRIVATE_KEY }}" | base64 --decode > private_key.pem
+      - run: echo "${{ secrets.JWT_PUBLIC_KEY }}" | base64 --decode > public_key.pem
+      # - run: echo "Decoded JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY | base64 -d }}"
+      # - run: echo "Decoded JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY | base64 -d }}"
+      - run: echo private_key.pem
+      - run: echo public_key.pem
 
       - run: npm run test:e2e
         env:
