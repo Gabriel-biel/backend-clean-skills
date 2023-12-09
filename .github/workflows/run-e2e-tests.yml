@@ -29,18 +29,15 @@ jobs:
           node-version: 18
           cache: "npm"
 
+      - run: echo "${{ secrets.JWT_PUBLIC_KEY }}"
+
       - run: npm ci
-
-      # - run: echo "${{ env.JWT_PRIVATE_KEY }}" | base64 --decode > private_key.pem
-      # - run: echo "${{ secrets.JWT_PUBLIC_KEY }}" | base64 --decode > public_key.pem
-
       - run: npm run test:e2e
         env:
-          #Error: secretOrPrivateKey must be an asymmetric key when using RS256#
           DATABASE_URL: "postgresql://postgres:docker@localhost:5432/nest-challenge?schema=public"
           AWS_BUCKET_NAME: "ignite-nest-clean"
           CLOUDFLARE_ACCOUNT_ID: "584075bcc0c6c67478761fe805d67a79"
           AWS_ACCESS_KEY_ID: "c3c2b62831a0479fcfc453f02c04d142"
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
-          JWT_PRIVATE_KEY: ${{ env.JWT_PRIVATE_KEY }}
-          JWT_PUBLIC_KEY: ${{ env.JWT_PUBLIC_KEY }}
+          JWT_PRIVATE_KEY: "${{ secrets.JWT_PRIVATE_KEY }}"
+          JWT_PUBLIC_KEY: "${{ secrets.JWT_PUBLIC_KEY }}"
