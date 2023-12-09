@@ -30,6 +30,8 @@ jobs:
           cache: "npm"
           
       - run: npm ci
+        
+      - run: npm run test:e2e
         env:
           DATABASE_URL: "postgresql://postgres:docker@localhost:5432/nest-challenge?schema=public"
           AWS_BUCKET_NAME: "ignite-nest-clean"
@@ -38,5 +40,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
           JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
           JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-      - run: npm run test:e2e
         
