@@ -30,10 +30,8 @@ jobs:
           cache: "npm"
           
       - run: npm ci
-
       - run: echo "${{ secrets.JWT_PRIVATE_KEY }}" | base64 --decode > private_key.pem
       - run: echo "${{ secrets.JWT_PUBLIC_KEY }}" | base64 --decode > public_key.pem
-     
       - run: npm run test:e2e
         env:
           DATABASE_URL: "postgresql://postgres:docker@localhost:5432/nest-challenge?schema=public"
