@@ -31,13 +31,11 @@ jobs:
 
       - name: Decode base64 keys
         run: |
-          echo "${JWT_PRIVATE_KEY}" | base64 -d > private.pem
-          echo "${JWT_PUBLIC_KEY}" | base64 -d > public.pem
-          chmod 600 private.pem
-          ssh-keygen -y -f private.pem > public_generated.pem
-          diff public.pem public_generated.pem
-          echo private.pem
-        shell: bash
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY_BASE64" | base64 --decode > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-add ~/.ssh/id_rsa
+          echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
       - run: npm ci
       - run: npm run test:e2e
@@ -49,4 +47,3 @@ jobs:
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
           JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
           JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-        shell: bash
