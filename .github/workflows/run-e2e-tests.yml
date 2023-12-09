@@ -31,6 +31,8 @@ jobs:
 
       - run: openssl genpkey -algorithm RSA -out private_key.pem
       - run: openssl rsa -pubout -in private_key.pem -out public_key.pem
+      - run: base64 -w 0 public_key.pem > example_base64.txt
+      - run: echo "CONTEUDO=$(cat example_base64.txt)"
 
       - run: npm ci
       - run: npm run test:e2e
