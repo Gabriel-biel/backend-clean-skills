@@ -49,5 +49,5 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: "584075bcc0c6c67478761fe805d67a79"
           AWS_ACCESS_KEY_ID: "c3c2b62831a0479fcfc453f02c04d142"
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
-          PRIVATE_KEY: private.pem
-          PUBLIC_KEY: public.pem
+          JWT_PRIVATE_KEY: private.pem
+          JWT_PUBLIC_KEY: public.pem
