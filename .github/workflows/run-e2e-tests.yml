@@ -44,7 +44,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
 
           JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
-            run: echo "JWT_PRIVATE_KEY=$(cat private_base64.txt)" >> $GITHUB_ENV
+      - run: echo "JWT_PRIVATE_KEY=$(cat private_base64.txt)" >> $GITHUB_ENV
           
           JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}
-            run: echo "JWT_PUBLIC_KEY=$(cat public_base64.txt)" >> $GITHUB_ENV
+      - run: echo "JWT_PUBLIC_KEY=$(cat public_base64.txt)" >> $GITHUB_ENV
