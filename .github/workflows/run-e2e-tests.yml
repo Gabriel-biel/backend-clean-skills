@@ -29,6 +29,7 @@ jobs:
           node-version: 18
           cache: "npm"
 
+      - run: "echo ${{ secrets.JWT_PUBLIC_KEY }}"
       - run: npm ci
       - run: npm run test:e2e
         env:
