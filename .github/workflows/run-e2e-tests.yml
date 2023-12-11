@@ -22,9 +22,8 @@ jobs:
         ports:
           - 6379:6379
 
-    env:
-      private_key: ${{ secrets.JWT_PRIVATE_KEY }}
-      public_key: ${{ secrets.JWT_PUBLIC_KEY }}
+    
+    
 
     steps:
       - uses: actions/checkout@v4
@@ -33,9 +32,11 @@ jobs:
           node-version: 18
           cache: "npm"
 
-      - run: echo "A variável de ambiente é $private_key"
-      - run: echo "A variável de ambiente é $public_key"
-          
+
+      - run: echo "$public_key"
+      - run: echo "$PUBLIC_KEY"
+      - run: echo "${{ secrets.public_key }}"
+      
       - run: npm ci
       - run: npm run test:e2e
         env:
@@ -44,5 +45,5 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: "584075bcc0c6c67478761fe805d67a79"
           AWS_ACCESS_KEY_ID: "c3c2b62831a0479fcfc453f02c04d142"
           AWS_SECRET_ACCESS_KEY: "9d926492911c6a58816bf1fb8796c0485020c94637c69d4edacff75095fe3af8"
-          JWT_PRIVATE_KEY: "$private_key"
-          JWT_PUBLIC_KEY: "$public_key"
+          JWT_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          JWT_PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
