@@ -30,8 +30,8 @@ jobs:
           cache: "npm"
 
       - run: |
-          echo "JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY_BASE64 }}"
-          echo "JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY_BASE64 }}"
+          echo "JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}"
+          echo "JWT_PUBLIC_KEY: ${{ secrets.JWT_PUBLIC_KEY }}"
           
       - run: npm ci
       - run: npm run test:e2e
