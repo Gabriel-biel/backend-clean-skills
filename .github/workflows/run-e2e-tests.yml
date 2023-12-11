@@ -34,9 +34,8 @@ jobs:
 
 
       - run: echo "$public_key"
-      - run: echo ${ public_key }
-      - run: echo "${ secrets.public_key }"
-      - run: echo ${ secrets.public_key }
+      - run: echo "$PUBLIC_KEY"
+      - run: echo "${{ secrets.public_key }}"
       
       - run: npm ci
       - run: npm run test:e2e
