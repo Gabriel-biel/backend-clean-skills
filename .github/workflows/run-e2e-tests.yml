@@ -33,7 +33,7 @@ jobs:
       - run: openssl rsa -pubout -in private_key.pem -out public_key.pem
       - run: cat public_key.pem | base64 -w 0 > public_key_base64.txt
 
-      - run: echo JWT_PUBLIC_KEY
+      - run: echo ${{ JWT_PUBLIC_KEY }}
       - run: npm ci
       - run: npm run test:e2e
         env:
